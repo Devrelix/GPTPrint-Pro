@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GPTPrint Pro - ChatGPT Print Customizer</title>
+    <link rel="stylesheet" href="popup.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">
+          <img src="icons/icon48.png" width="28" height="28" alt="GPTPrint Pro"/>
+          <h1>GPTPrint Pro <span class="logo-divider">|</span> Devrelix</h1>
+        </div>
+
+        <div class="header-actions">
+          <a href="https://forms.gle/k4yLqTe2Za1VXWUP9" target="_blank"
+             class="header-icon-btn" title="Send Feedback">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </a>
+          <a href="https://github.com/Devrelix" target="_blank"
+             class="header-icon-btn" title="GitHub">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+          </a>
+          <a href="https://linkedin.com/company/devrelix" target="_blank"
+             class="header-icon-btn" title="LinkedIn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+        </div>
+
+        <span class="version" id="ext-version"></span>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" data-tab="basic">
+          <svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor" stroke="none">
+            <path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"/>
+          </svg>
+          <span>Basic</span>
+        </button>
+
+        <button class="tab" data-tab="premium">
+          <svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor" stroke="none">
+            <path d="M256,152a12.00028,12.00028,0,0,1-12,12H232v12a12,12,0,0,1-24,0V164H196a12,12,0,0,1,0-24h12V128a12,12,0,0,1,24,0v12h12A12.00028,12.00028,0,0,1,256,152ZM60,68h8v8a12,12,0,0,0,24,0V68h8a12,12,0,0,0,0-24H92V36a12,12,0,0,0-24,0v8H60a12,12,0,0,0,0,24ZM180,192h-4v-4a12,12,0,0,0-24,0v4h-4a12,12,0,0,0,0,24h4v4a12,12,0,0,0,24,0v-4h4a12,12,0,0,0,0-24Zm4.48438-71.51367L78.14258,226.82861a20.02755,20.02755,0,0,1-28.28418.00147L29.17188,206.1416a19.9986,19.9986,0,0,1,.001-28.28515L177.85742,29.17187a20.02592,20.02592,0,0,1,28.28418-.00146l20.68653,20.6875a19.99862,19.99862,0,0,1,0,28.28418l-42.3418,42.34228-.001.001ZM160.9707,80,176,95.0293,207.0293,64,192,48.97021Zm-1.9414,32L144,96.9707,48.9707,192,64,207.02979Z"/>
+          </svg>
+          <span>Style</span>
+        </button>
+
+        <button class="tab" data-tab="advanced">
+          <svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor" stroke="none">
+            <path d="M231.56836,41.22949a19.85812,19.85812,0,0,0-16.79981-16.79834c-11.88183-1.77246-42.75195-2.67236-72.62695,27.20166l-7.79883,7.79883H74.74512a19.87386,19.87386,0,0,0-14.14258,5.85791L28.26074,97.63184a19.99974,19.99974,0,0,0,10.22071,33.75293l38.34765,7.66992L116.946,179.17188l7.66919,38.34667a19.99622,19.99622,0,0,0,33.75391,10.22022L190.71191,195.396a19.87133,19.87133,0,0,0,5.85645-14.14112V121.65674l7.79883-7.79883C234.24121,83.9834,233.3418,53.11572,231.56836,41.22949ZM76.40137,83.43164H110.343l-31.542,31.542L50.5166,109.31641ZM159.1123,68.60352c19.82032-19.82032,39.25684-21.52247,49.05958-20.7754.74707,9.81055-.95606,29.23975-20.7754,49.05909L128,156.28418,99.71582,128Zm13.45606,110.99511L146.68359,205.4834l-5.65722-28.28418,31.542-31.54248ZM100.957,198.37354c-18.31055,31.771-61.63183,32.13623-63.4668,32.13623a12.00028,12.00028,0,0,1-12-12c0-1.83545.36524-45.15723,32.13575-63.46729a12.00014,12.00014,0,0,1,11.98437,20.79395c-11.01074,6.3457-16.001,18.95947-18.25976,28.835,9.86035-2.24561,22.44238-7.229,28.81347-18.28174a11.9996,11.9996,0,1,1,20.793,11.98389Z"/>
+          </svg>
+          <span>Advanced</span>
+        </button>
+
+        <button class="tab" data-tab="preview">
+          <svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor" stroke="none">
+            <path d="M250.96582,123.12659c-.36328-.81836-9.127-20.26075-28.48047-39.61524C196.63477,57.65686,163.96191,43.99182,128,43.99182s-68.63477,13.665-94.48535,39.51953C14.16113,102.86584,5.39746,122.30823,5.03418,123.12659a12.00024,12.00024,0,0,0,0,9.74707c.36426.81836,9.12793,20.25683,28.48145,39.60742C59.36621,198.32971,92.03809,211.99182,128,211.99182s68.63379-13.66211,94.48438-39.51074c19.35351-19.35059,28.11718-38.78906,28.48144-39.60742A12.00024,12.00024,0,0,0,250.96582,123.12659ZM204.91406,156.107C183.46582,177.26428,157.58789,187.99182,128,187.99182S72.53418,177.26428,51.08594,156.107A130.50586,130.50586,0,0,1,29.5166,127.99963,130.53626,130.53626,0,0,1,51.08691,99.88342C72.53516,78.72131,98.41211,67.99182,128,67.99182s55.46484,10.72949,76.91309,31.8916a130.549,130.549,0,0,1,21.57031,28.11426A130.47521,130.47521,0,0,1,204.91406,156.107ZM128,83.99963a44,44,0,1,0,44,44A44.04978,44.04978,0,0,0,128,83.99963Zm0,64a20,20,0,1,1,20-20A20.02229,20.02229,0,0,1,128,147.99963Z"/>
+          </svg>
+          <span>Preview</span>
+        </button>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="tab-content">
+
+        <!-- Basic Tab -->
+        <div class="tab-pane active" id="basic-tab">
+          <div class="section compact">
+            <div class="section-header">
+              <h3>PDF Theme</h3>
+            </div>
+            <div class="radio-group">
+              <label class="radio-card">
+                <input type="radio" name="printTheme" value="light" checked />
+                <span class="radio-label">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                  </svg>
+                  Light
+                </span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="printTheme" value="dark" />
+                <span class="radio-label">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                  </svg>
+                  Dark
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="section compact">
+            <div class="section-header">
+              <h3>Quick Settings</h3>
+            </div>
+
+            <div class="form-row">
+              <label class="checkbox-label">
+                <input type="checkbox" id="includeMetadata" />
+                <span>Conversation Metadata</span>
+              </label>
+            </div>
+
+            <div class="form-row split">
+              <div class="form-col">
+                <label class="input-label">Orientation</label>
+                <select id="pageOrientation" class="select-input">
+                  <option value="portrait">Portrait</option>
+                  <option value="landscape">Landscape</option>
+                </select>
+              </div>
+              <div class="form-col">
+                <label class="input-label">Font Size</label>
+                <select id="fontSize" class="select-input">
+                  <option value="12px">12px</option>
+                  <option value="14px">14px</option>
+                  <option value="16px">16px</option>
+                  <option value="18px">18px</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row" id="customFontSizeWrap" style="display: none">
+              <label class="input-label">Custom Font Size</label>
+              <input type="text" id="customFontSize" class="text-input" placeholder="e.g. 15px" value="14px" />
+            </div>
+
+            <div class="form-row split">
+              <div class="form-col">
+                <label class="input-label">Top Margin</label>
+                <input type="text" id="marginTop" class="text-input" value="20mm" />
+              </div>
+              <div class="form-col">
+                <label class="input-label">Bottom Margin</label>
+                <input type="text" id="marginBottom" class="text-input" value="20mm" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label class="checkbox-label">
+                <input type="checkbox" id="showUserChat" checked />
+                <span>Show User Messages</span>
+              </label>
+            </div>
+            <div class="form-row">
+              <label class="checkbox-label">
+                <input type="checkbox" id="showAssistantChat" checked />
+                <span>Show Assistant Messages</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style Tab -->
+        <div class="tab-pane" id="premium-tab">
+          <div class="section compact">
+            <div class="section-header">
+              <h3>Typography</h3>
+            </div>
+            <div class="form-row">
+              <label class="input-label">Font Family</label>
+              <select id="fontFamily" class="select-input">
+                <option value="default">ChatGPT Default</option>
+                <option value="Arial">Arial</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Consolas">Consolas</option>
+                <option value="Courier New">Courier New</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="section compact">
+            <div class="section-header">
+              <h3>Message Styling</h3>
+            </div>
+
+            <div class="style-tabs">
+              <button class="style-tab active" data-target="user-styling">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+                User
+              </button>
+              <button class="style-tab" data-target="assistant-styling">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <path d="M9 9h6M9 15h6"/>
+                </svg>
+                Assistant
+              </button>
+            </div>
+
+            <div id="user-styling" class="style-content active">
+              <div class="form-row split">
+                <div class="form-col">
+                  <label class="input-label">Background</label>
+                  <input type="color" id="userBg" class="color-input" value="#667eea" />
+                </div>
+                <div class="form-col">
+                  <label class="input-label">Text</label>
+                  <input type="color" id="userColor" class="color-input" value="#ffffff" />
+                </div>
+              </div>
+              <div class="form-row split">
+                <div class="form-col">
+                  <label class="input-label">Align</label>
+                  <select id="userAlign" class="select-input">
+                    <option value="left" selected>Left</option>
+                    <option value="center">Center</option>
+                    <option value="right">Right</option>
+                  </select>
+                </div>
+                <div class="form-col">
+                  <label class="input-label">Radius</label>
+                  <input type="text" id="userRadius" class="text-input" value="18px" />
+                </div>
+              </div>
+            </div>
+
+            <div id="assistant-styling" class="style-content">
+              <div class="form-row split">
+                <div class="form-col">
+                  <label class="input-label">Background</label>
+                  <input type="color" id="assistantBg" class="color-input" value="#f0f0f0" />
+                </div>
+                <div class="form-col">
+                  <label class="input-label">Text</label>
+                  <input type="color" id="assistantColor" class="color-input" value="#000000" />
+                </div>
+              </div>
+              <div class="form-row split">
+                <div class="form-col">
+                  <label class="input-label">Align</label>
+                  <select id="assistantAlign" class="select-input">
+                    <option value="left" selected>Left</option>
+                    <option value="center">Center</option>
+                    <option value="right">Right</option>
+                  </select>
+                </div>
+                <div class="form-col">
+                  <label class="input-label">Radius</label>
+                  <input type="text" id="assistantRadius" class="text-input" value="18px" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Advanced Tab -->
+        <div class="tab-pane" id="advanced-tab">
+          <div class="section compact collapsible">
+            <div class="section-header clickable" data-toggle="headerSettings">
+              <div class="header-left">
+                <input type="checkbox" id="showHeader" class="toggle-checkbox" />
+                <h3>Custom Header</h3>
+              </div>
+              <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+
+            <div id="headerSettings" class="collapsible-content">
+              <div class="form-row">
+                <label class="input-label">Title</label>
+                <input type="text" id="headerText" class="text-input" placeholder="My ChatGPT Conversation" />
+              </div>
+              <div class="form-row">
+                <label class="input-label">Subtitle</label>
+                <input type="text" id="headerSubtitle" class="text-input" placeholder="Generated with GPTPrint Pro" />
+              </div>
+              <div class="form-row split">
+                <div class="form-col">
+                  <label class="input-label">Title Size</label>
+                  <input type="number" id="headerFontSize" class="text-input" value="22" min="10" />
+                </div>
+                <div class="form-col">
+                  <label class="input-label">Subtitle Size</label>
+                  <input type="number" id="headerSubtitleSize" class="text-input" value="14" min="8" />
+                </div>
+              </div>
+              <div class="form-row split">
+                <div class="form-col">
+                  <label class="input-label">Color</label>
+                  <input type="color" id="headerColor" class="color-input" value="#667eea" />
+                </div>
+                <div class="form-col">
+                  <label class="input-label">Alignment</label>
+                  <select id="headerAlign" class="select-input">
+                    <option value="left">Left</option>
+                    <option value="center" selected>Center</option>
+                    <option value="right">Right</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section compact collapsible">
+            <div class="section-header clickable" data-toggle="watermarkSettings">
+              <div class="header-left">
+                <input type="checkbox" id="watermark" class="toggle-checkbox" />
+                <h3>Watermark</h3>
+              </div>
+              <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+
+            <div id="watermarkSettings" class="collapsible-content">
+              <div class="form-row">
+                <label class="input-label">Text</label>
+                <input type="text" id="watermarkText" class="text-input" placeholder="Devrelix" />
+              </div>
+              <div class="form-row split">
+                <div class="form-col">
+                  <label class="input-label">Position</label>
+                  <select id="watermarkPosition" class="select-input">
+                    <option value="center">Center</option>
+                    <option value="top-left">Top Left</option>
+                    <option value="top-right">Top Right</option>
+                    <option value="bottom-left">Bottom Left</option>
+                    <option value="bottom-center">Bottom Center</option>
+                    <option value="bottom-right">Bottom Right</option>
+                  </select>
+                </div>
+                <div class="form-col">
+                  <label class="input-label">Rotation</label>
+                  <select id="watermarkRotation" class="select-input">
+                    <option value="0">0°</option>
+                    <option value="45" selected>45°</option>
+                    <option value="90">90°</option>
+                    <option value="-45">-45°</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row split">
+                <div class="form-col">
+                  <label class="input-label">Opacity <span id="opacityValue">30%</span></label>
+                  <input type="range" id="watermarkOpacity" class="range-input" min="1" max="10" value="3" />
+                </div>
+                <div class="form-col">
+                  <label class="input-label">Size</label>
+                  <input type="text" id="watermarkTextSize" class="text-input" value="120px" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Preview Tab -->
+        <div class="tab-pane" id="preview-tab">
+          <div class="preview-container">
+            <div class="preview-header" id="previewHeader">
+              <h3 id="previewHeaderText">ChatGPT Conversation</h3>
+              <p id="previewHeaderSub">Generated with GPTPrint Pro</p>
+            </div>
+            <div class="preview-messages">
+              <div class="preview-bubble user-preview" id="previewUser">
+                <div class="preview-avatar">U</div>
+                <div class="preview-text">Hello! This is a user message example.</div>
+              </div>
+              <div class="preview-bubble assistant-preview" id="previewAssistant">
+                <div class="preview-avatar">AI</div>
+                <div class="preview-text">Hi! This is an assistant response example.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="actions">
+        <button id="saveBtn" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/>
+            <polyline points="7 3 7 8 15 8"/>
+          </svg>
+          Save
+        </button>
+        <button id="resetBtn" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+          Reset
+        </button>
+        <button id="printNow" class="btn btn-success">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          Print
+        </button>
+      </div>
+
+
+      <!-- Status -->
+      <div id="status" class="status"></div>
+
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>
