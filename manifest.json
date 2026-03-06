@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "GPTPrint Pro – Print & Export ChatGPT to PDF",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Customize and print ChatGPT conversations with themes, watermark, header, and layout control.",
   "icons": {
     "16": "icons/icon16.png",
@@ -13,10 +13,7 @@
     "default_popup": "popup.html",
     "default_title": "GPTPrint Pro"
   },
-  "permissions": ["storage", "tabs"],
-  "background": {
-    "service_worker": "background.js"
-  },
+  "permissions": ["storage"],
   "content_scripts": [
     {
       "matches": ["https://chatgpt.com/*", "https://chat.openai.com/*"],
